@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <%- include('partials/head') %>
+    <%- include('partials/header') %>
+    
+    <div class="container">
+        <div class="mt-4">
+            <div class="row">
+                <% list.forEach(function(c) { %>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card">
+                        <img src="<%= c.Picture %>" class="card-img-top img-thumbnail" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title"><%= c.Book %></h5>
+                        <a href="/cat/details/<%= c.ID %>" class="btn btn-primary">Detalis</a>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</html>
+

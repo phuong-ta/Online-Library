@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <%- include('partials/head') %>
+    <%- include('partials/header') %>
+    <div class="container">
+        <div class="mt-4"> 
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Book</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Stiuation</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% list.forEach(function(c) {  %>
+                        <tr>
+                            <td><%= c.Book %></td>
+                            <td><%= c.Author %></td>
+                            <td><%= c.Category %></td>
+                            <td><img src="<%= c.Picture %>"  alt="..." style="width: 170px ; height: 200px;"></td>
+                            <td><%= c.Content %></td>
+                            <td><%= c.Location %></td>
+                            <td><%= c.Availabe %></td>
+                            <td>
+                                <a href="/cat/details/<%= c.ID %>/<%= c.Book %>"> <span class="material-icons"> open_in_new</span> </a>
+                                <a href="/cat/edit/<%= c.ID %>" ><span class="material-icons">mode_edit</span> </a>
+                                <a href="" data-toggle="modal" data-target="#btn-detele-book" data-id="<%= c.ID %>"><span class="material-icons"> delete</span></a>
+                            </td>
+                        </tr>
+                            <% }) %>
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="btn-detele-book" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Remove</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Do you want remove this book?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger">Remove</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%- include('partials/footer') %>
+</html>
+
+<form method="POST" name="delete-book"> </form>
+<script>
+    var bookId;
+    var deleteform = document.forms['delete-book'];
+    var btnDeleteBook = document.getElementById('btn-detele-book');
+
+    $('#btn-detele-book').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    bookId = button.data('id');
+    });
+
+    btnDeleteBook.onclick = function(){
+        deleteform.action = '/cat/' + bookId + '?_method=DELETE';
+        deleteform.submit();
+    };
+</script>
